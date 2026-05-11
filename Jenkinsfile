@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git branch: 'main', credentialsId: 'a3beecdd-dba7-4486-a89f-01dc38c0cb75', url: 'https://github.com/hishamatwa/shoppingapp-jenkins.git'
+                git branch: 'main', url: 'https://github.com/hishamatwa/shoppingapp-jenkins.git'
             }
         }
 
@@ -51,7 +51,7 @@ pipeline {
 
         stage('docker') {
             steps {
-                withDockerRegistry(credentialsId: '2ef3fa59-1073-4e74-8014-00564330eab8', url: 'https://index.docker.io/v1/') {
+                withDockerRegistry(url: 'https://index.docker.io/v1/') {
                     sh 'docker build -t shopping-cart -f docker/Dockerfile .'
                     sh 'docker tag shopping-cart hishamatwa/shopping-cart:latest'
                     sh 'docker push hishamatwa/shopping-cart:latest'
